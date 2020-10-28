@@ -13,10 +13,16 @@ namespace bsw_generation.LayerTab.ComTab
 {
     class ComManagement
     {
+        const Byte GENERAL_INFO_INDEX = 1;
+        const Byte MESSAGE_OBJECT_INFO_INDEX = 2;
+        const Byte SEND_MESSAGE_INFO_INDEX = 3;
+        const Byte RECEIVE_MESSAGE_INFO_INDEX = 4;
+
         UInt32 send_msg_handle_index = 0; // 현재 전송 메시지 핸들 Index
         UInt32 receive_msg_handle_index = 0; // 현재 수신 메시지 핸들 Index
         UInt32 send_sig_handle_index = 0; // 현재 전송 시그널 핸들 Index
         UInt32 receive_sig_handle_index = 0; //현재 수신 시그널 핸들 Index
+        Byte currentSelectTreeIndex = 0;
 
         private COMGeneral generalInfo = new COMGeneral();
         private LinkedList<ComMessageAttributesInformation> allMessageInfo = new LinkedList<ComMessageAttributesInformation>();
@@ -100,6 +106,9 @@ namespace bsw_generation.LayerTab.ComTab
             receiveMessageInfo.Clear();
             sendSingalInfo.Clear();
             receiveSingalInfo.Clear();
+
+            generalInfo.setDefaultComGeneralData();
+            //comProperty.SelectedObject = generalInfo;
         }
 
         public void restartlLLayer()
@@ -108,10 +117,32 @@ namespace bsw_generation.LayerTab.ComTab
             messageObjectTree = mainTree.Nodes.Add("Message Object");
             sendMessageTree = messageObjectTree.Nodes.Add("SendMessage");
             receiveMessageTree = messageObjectTree.Nodes.Add("ReceiveMessage");
+                      
+
             send_msg_handle_index = 0;
             receive_msg_handle_index = 0;
             send_sig_handle_index = 0;
             receive_sig_handle_index = 0;
+
+            switch(currentSelectTreeIndex)
+            {
+                case GENERAL_INFO_INDEX:
+                    comProperty.SelectedObject = generalInfo;
+                    break;
+
+                case MESSAGE_OBJECT_INFO_INDEX:
+                    comProperty.SelectedObject = null;
+                    break;
+
+                case SEND_MESSAGE_INFO_INDEX:
+                    comProperty.SelectedObject = null;
+                    break;
+
+                case RECEIVE_MESSAGE_INFO_INDEX:
+                    comProperty.SelectedObject = null;
+                    break;
+            }
+            
         }
 
         public Boolean checkCOMGenerationCondition()
@@ -541,21 +572,25 @@ namespace bsw_generation.LayerTab.ComTab
             {
                 case "General":
                     comProperty.SelectedObject = generalInfo;
+                    currentSelectTreeIndex = GENERAL_INFO_INDEX;
                     break;
 
                 case "Message Object":
                     //current_treeview_event = e;
                     comProperty.SelectedObject = null;
+                    currentSelectTreeIndex = MESSAGE_OBJECT_INFO_INDEX;
                     break;
 
                 case "SendMessage":
                     //current_treeview_event = e;
                     comProperty.SelectedObject = null;
+                    currentSelectTreeIndex = SEND_MESSAGE_INFO_INDEX;
                     break;
 
                 case "ReceiveMessage":
                     //current_treeview_event = e;
                     comProperty.SelectedObject = null;
+                    currentSelectTreeIndex = RECEIVE_MESSAGE_INFO_INDEX;
                     break;
 
                 default:
@@ -628,6 +663,7 @@ namespace bsw_generation.LayerTab.ComTab
 
             }
         }
+        /*
         public void ilTreeViewUpdate()
         {
             foreach (var parser_msg_object in allMessageInfo)
@@ -662,6 +698,7 @@ namespace bsw_generation.LayerTab.ComTab
 
 
         }
+        */
         public TreeView MainTree
         {
             get { return mainTree; }

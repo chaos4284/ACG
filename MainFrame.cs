@@ -90,12 +90,12 @@ namespace bsw_generation
         private void InitialLayerModuleParameter(object sender, System.EventArgs e)
         {
             /*COM Module Init */
-            COMManagement.MainTree = ComTab;
+            COMManagement.MainTree = ComTab; // ComTab: Tree of COM TAB in Desiner 
             COMManagement.IlProperty = COMParameterProperty;
             COMManagement.IlProperty.PropertySort = PropertySort.Categorized;
 
 
-            COMManagement.GeneralTree = ComTab.Nodes.Add("General");
+            COMManagement.GeneralTree = ComTab.Nodes.Add("General");//ComTab.Nodes.Add("General"); Generate General Tree
             COMManagement.MessageObjectTree = ComTab.Nodes.Add("Message Object");
             COMManagement.SendMessageTree  = COMManagement.MessageObjectTree.Nodes.Add("SendMessage");
             COMManagement.ReceiveMessageTree = COMManagement.MessageObjectTree.Nodes.Add("ReceiveMessage");
@@ -282,7 +282,9 @@ namespace bsw_generation
         /*File Menu -> New */
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            /*현재 트리뷰에 있는 메시지 및 시그널 정보를 초기화 한다. */
+            initLayerModule();
+            restartLayerModule();
         }
 
         /*현재 설정된 메시지 혹은 시그널들의 정보를 저장한다. */
@@ -396,7 +398,8 @@ namespace bsw_generation
 
 
 
+
         //////////////////////////////////////Menu Process /////////////////////////////////////
 
-   }
+    }
 }

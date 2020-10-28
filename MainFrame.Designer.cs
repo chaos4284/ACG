@@ -189,6 +189,7 @@
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Message / Signal";
+            this.groupBox1.Visible = false;
             // 
             // label1
             // 

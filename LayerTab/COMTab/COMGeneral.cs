@@ -62,5 +62,13 @@ namespace bsw_generation.LayerTab.ComTab
             get { return app_mode_name; }
             set { app_mode_name = value; }
         }
+
+        public void setDefaultComGeneralData()
+        {
+           start_extension_state = "TRUE";
+           taskTime = 5;
+           app_mode_number = 0;
+           app_mode_name = "";
+        }
     }
 }
