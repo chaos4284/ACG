@@ -18,12 +18,13 @@ namespace bsw_generation.LayerTab.ComTab
         const Byte SEND_MESSAGE_INFO_INDEX = 3;
         const Byte RECEIVE_MESSAGE_INFO_INDEX = 4;
 
-        UInt32 send_msg_handle_index = 0; // 현재 전송 메시지 핸들 Index
-        UInt32 receive_msg_handle_index = 0; // 현재 수신 메시지 핸들 Index
-        UInt32 send_sig_handle_index = 0; // 현재 전송 시그널 핸들 Index
-        UInt32 receive_sig_handle_index = 0; //현재 수신 시그널 핸들 Index
-        Byte currentSelectTreeIndex = 0;
-
+        private DataGridView comDataGrid;
+        private UInt32 send_msg_handle_index = 0; // 현재 전송 메시지 핸들 Index
+        private UInt32 receive_msg_handle_index = 0; // 현재 수신 메시지 핸들 Index
+        private UInt32 send_sig_handle_index = 0; // 현재 전송 시그널 핸들 Index
+        private UInt32 receive_sig_handle_index = 0; //현재 수신 시그널 핸들 Index
+        private Byte currentSelectTreeIndex = 0;
+        
         private COMGeneral generalInfo = new COMGeneral();
         private LinkedList<ComMessageAttributesInformation> allMessageInfo = new LinkedList<ComMessageAttributesInformation>();
         private LinkedList<ComSignalAttributesInformation> allSignalInfo = new LinkedList<ComSignalAttributesInformation>();
@@ -99,6 +100,7 @@ namespace bsw_generation.LayerTab.ComTab
         }
         public void InitialLLayer()
         {
+
             mainTree.Nodes.Clear();
             allMessageInfo.Clear();
             allSignalInfo.Clear();
@@ -106,9 +108,27 @@ namespace bsw_generation.LayerTab.ComTab
             receiveMessageInfo.Clear();
             sendSingalInfo.Clear();
             receiveSingalInfo.Clear();
-
+            
             generalInfo.setDefaultComGeneralData();
-            //comProperty.SelectedObject = generalInfo;
+            comDataGrid.Hide();
+            comProperty.Hide();
+            comDataGrid.ColumnCount = 15;
+            comDataGrid.Columns[0].Name = "MsgName";
+            comDataGrid.Columns[1].Name = "Length";
+            comDataGrid.Columns[2].Name = "CycleTime";
+            comDataGrid.Columns[3].Name = "RepetitionCycleTime";
+            comDataGrid.Columns[4].Name = "RepetitionNumber";
+            comDataGrid.Columns[5].Name = "MessageDelayTime";
+            comDataGrid.Columns[6].Name = "SendMode";
+            comDataGrid.Columns[7].Name = "MsgID";
+            comDataGrid.Columns[8].Name = "StartOffsetDelay";
+            comDataGrid.Columns[9].Name = "MessageComSupport";
+            comDataGrid.Columns[10].Name = "DeadLineMonitoringOption";
+            comDataGrid.Columns[11].Name = "DeadLineMonitoringTimeout";
+            comDataGrid.Columns[12].Name = "NotificationOption";
+            comDataGrid.Columns[13].Name = "NotificationType";
+            comDataGrid.Columns[14].Name = "NotificationCallbackName";
+
         }
 
         public void restartlLLayer()
@@ -280,6 +300,7 @@ namespace bsw_generation.LayerTab.ComTab
                     sendMessageInfo.AddLast(sendMessageObject);
                     allMessageInfo.AddLast(sendMessageObject);
                     internalSignalInMessageTree = sendMessageTree.Nodes.Add(sendMessageObject.MsgName);
+                    send_msg_handle_index++;
 
                 }
                 else //파싱해온 메시지가 수신메시지일 경우
@@ -300,6 +321,7 @@ namespace bsw_generation.LayerTab.ComTab
                     receiveMessageInfo.AddLast(receiveMessageObject);
                     allMessageInfo.AddLast(receiveMessageObject);
                     internalSignalInMessageTree = receiveMessageTree.Nodes.Add(receiveMessageObject.MsgName);
+                    receive_msg_handle_index++;
 
                 }
 
@@ -326,8 +348,8 @@ namespace bsw_generation.LayerTab.ComTab
                             sendSingalInfo.AddLast(sendSignalObject);
                             allSignalInfo.AddLast(sendSignalObject);
                             internalSignalInMessageTree.Nodes.Add(sendSignalObject.SignalName);
-
-                        }
+                            send_sig_handle_index++;
+   }
                         //수신 메시지에 시그널 일경우
                         else if (msg_object.Direction == "RECEIVE")
                         {
@@ -346,8 +368,9 @@ namespace bsw_generation.LayerTab.ComTab
                             receiveSingalInfo.AddLast(receiveSignalObject);
                             allSignalInfo.AddLast(receiveSignalObject);
                             internalSignalInMessageTree.Nodes.Add(receiveSignalObject.SignalName);
+                            receive_sig_handle_index++;
 
-                        }
+}
                         else
                         {
 
@@ -570,31 +593,86 @@ namespace bsw_generation.LayerTab.ComTab
         {
             switch (objName)
             {
-                case "General":
+                case "General": /* Display Property */
+                    comProperty.Show();
+                    comDataGrid.Hide();
+                    MessageBox.Show("general");
                     comProperty.SelectedObject = generalInfo;
                     currentSelectTreeIndex = GENERAL_INFO_INDEX;
                     break;
 
-                case "Message Object":
+                case "Message Object": /* Display All Off */
                     //current_treeview_event = e;
+                    comDataGrid.Hide();
+                    comProperty.Hide();
                     comProperty.SelectedObject = null;
                     currentSelectTreeIndex = MESSAGE_OBJECT_INFO_INDEX;
+                    MessageBox.Show("Message Objec");
                     break;
 
-                case "SendMessage":
+                case "SendMessage":  /* Display DataGridView*/
                     //current_treeview_event = e;
-                    comProperty.SelectedObject = null;
+                    comDataGrid.Show();
+                    comProperty.Hide();
+                    comProperty.SelectedObject = null; // dataGrid 변환
                     currentSelectTreeIndex = SEND_MESSAGE_INFO_INDEX;
+
+                    /*Display all attribute of SendMessage */
+                    comDataGrid.Rows.Clear();
+                    foreach (ComMessageAttributesInformation msg_object in sendMessageInfo)
+                    {
+                        comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
+                                             msg_object.MessageDelayTime, msg_object.SendMode, msg_object.MsgID, msg_object.StartOffsetDelay, msg_object.MessageComSupport, msg_object.DeadLineMonitoringOption,
+                                             msg_object.DeadLineMonitoringTimeout, msg_object.NotificationOption, msg_object.NotificationType, msg_object.NotificationCallbackName);
+
+                        /*
+                        (msg_object.MsgName)
+                        {
+                            comProperty.SelectedObject = msg_object;
+                            break;
+                        }
+                        else
+                        {
+                            ;
+                        }
+                        */
+                    }
+
+
                     break;
 
-                case "ReceiveMessage":
+                case "ReceiveMessage": /* Display DataGridView*/
                     //current_treeview_event = e;
-                    comProperty.SelectedObject = null;
+                    comDataGrid.Show();
+                    comProperty.Hide();
+                    comProperty.SelectedObject = null; // dataGrid변환
                     currentSelectTreeIndex = RECEIVE_MESSAGE_INFO_INDEX;
+
+                    comDataGrid.Rows.Clear();
+                    /*Display all attribute of SendMessage */
+                    foreach (ComMessageAttributesInformation msg_object in receiveMessageInfo)
+                    {
+                        comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
+                                             msg_object.MessageDelayTime, msg_object.SendMode, msg_object.MsgID, msg_object.StartOffsetDelay, msg_object.MessageComSupport, msg_object.DeadLineMonitoringOption,
+                                             msg_object.DeadLineMonitoringTimeout, msg_object.NotificationOption, msg_object.NotificationType, msg_object.NotificationCallbackName);
+
+                        /*
+                        (msg_object.MsgName)
+                        {
+                            comProperty.SelectedObject = msg_object;
+                            break;
+                        }
+                        else
+                        {
+                            ;
+                        }
+                        */
+                    }
                     break;
 
                 default:
-                 
+                    comDataGrid.Hide();
+                    comProperty.Show();
                     if (mainTree.SelectedNode.Parent.Text == "SendMessage")
                     {
                         foreach (ComMessageAttributesInformation msg_object in sendMessageInfo)
@@ -699,6 +777,12 @@ namespace bsw_generation.LayerTab.ComTab
 
         }
         */
+
+        public DataGridView ComDataGrid
+        {
+            get { return comDataGrid; }
+            set { comDataGrid = value; }
+        }
         public TreeView MainTree
         {
             get { return mainTree; }

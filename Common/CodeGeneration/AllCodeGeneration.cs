@@ -1668,7 +1668,6 @@ namespace bsw_generation.CodeGeneration
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* waitTime */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* rxMask */", tpConnectionObject.RxMask));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* messageCount */", tpConnectionObject.MessageCount));
-                tpParameterHandle.WriteLine(String.Format("     {0}, /* sendConfirm */", 0));
                 tpParameterHandle.WriteLine("    },");
             }
 

@@ -90,6 +90,8 @@ namespace bsw_generation
         private void InitialLayerModuleParameter(object sender, System.EventArgs e)
         {
             /*COM Module Init */
+            //COMManagement.
+            COMManagement.ComDataGrid = dataGridView1;
             COMManagement.MainTree = ComTab; // ComTab: Tree of COM TAB in Desiner 
             COMManagement.IlProperty = COMParameterProperty;
             COMManagement.IlProperty.PropertySort = PropertySort.Categorized;
@@ -99,7 +101,9 @@ namespace bsw_generation
             COMManagement.MessageObjectTree = ComTab.Nodes.Add("Message Object");
             COMManagement.SendMessageTree  = COMManagement.MessageObjectTree.Nodes.Add("SendMessage");
             COMManagement.ReceiveMessageTree = COMManagement.MessageObjectTree.Nodes.Add("ReceiveMessage");
-            
+
+            COMManagement.InitialLLayer();
+
             /*TP Module Init */
             TPManagement.MainTree = TpTab;
             TPManagement.TPProperty = TPParameterProperty;
@@ -188,7 +192,7 @@ namespace bsw_generation
                     }
                     break;
             }
- */ 
+ */
         }
         /*delete button click, Message and signal */
         private void object_delete_Click(object sender, EventArgs e)
@@ -393,6 +397,7 @@ namespace bsw_generation
                 MessageBox.Show("Generation Failed");
             }
         }
+
 
 
 
