@@ -56,6 +56,7 @@ namespace bsw_generation
             TPManagement.InitialTPLayer();
            
         }
+
         /*TreeView를 초기상태로 변경한다. */
         private void restartLayerModule()
         {
@@ -91,18 +92,18 @@ namespace bsw_generation
         {
             /*COM Module Init */
             //COMManagement.
+
             COMManagement.ComDataGrid = dataGridView1;
             COMManagement.MainTree = ComTab; // ComTab: Tree of COM TAB in Desiner 
             COMManagement.IlProperty = COMParameterProperty;
             COMManagement.IlProperty.PropertySort = PropertySort.Categorized;
-
+            COMManagement.InitialLLayer();
 
             COMManagement.GeneralTree = ComTab.Nodes.Add("General");//ComTab.Nodes.Add("General"); Generate General Tree
             COMManagement.MessageObjectTree = ComTab.Nodes.Add("Message Object");
             COMManagement.SendMessageTree  = COMManagement.MessageObjectTree.Nodes.Add("SendMessage");
             COMManagement.ReceiveMessageTree = COMManagement.MessageObjectTree.Nodes.Add("ReceiveMessage");
 
-            COMManagement.InitialLLayer();
 
             /*TP Module Init */
             TPManagement.MainTree = TpTab;
@@ -117,6 +118,11 @@ namespace bsw_generation
             generationPath = filePathDialog.GenerationFilePath;
             databasePath = "";
             selectNode = "";
+
+/*
+            initLayerModule();
+            restartLayerModule();
+*/
         }
 
 
