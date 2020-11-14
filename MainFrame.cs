@@ -118,11 +118,6 @@ namespace bsw_generation
             generationPath = filePathDialog.GenerationFilePath;
             databasePath = "";
             selectNode = "";
-
-/*
-            initLayerModule();
-            restartLayerModule();
-*/
         }
 
 
@@ -402,6 +397,11 @@ namespace bsw_generation
             {
                 MessageBox.Show("Generation Failed");
             }
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            COMManagement.comDataGridChangedValue(sender,e);
         }
 
 

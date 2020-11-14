@@ -17,7 +17,23 @@ namespace bsw_generation.LayerTab.ComTab
         const Byte MESSAGE_OBJECT_INFO_INDEX = 2;
         const Byte SEND_MESSAGE_INFO_INDEX = 3;
         const Byte RECEIVE_MESSAGE_INFO_INDEX = 4;
-
+              
+        const Int32 MSG_NAME_INDEX = 0;
+        const Int32 LENGTH_INDEX = 1;
+        const Int32 CYCLE_TIME_INDEX = 2;
+        const Int32 REPETITION_CYCLE_INDEX = 3;
+        const Int32 REPETITION_NUMBER_INDEX = 4;
+        const Int32 MESSAGE_DELAY_TIME_INDEX = 5;
+        const Int32 SEND_MODE_INDEX = 6;
+        const Int32 MSG_ID_INDEX = 7;
+        const Int32 START_OFFSET_DELAY_INDEX = 8;
+        const Int32 MSG_COM_SUPPORT_INDEX = 9;
+        const Int32 DEADLINE_MONITORING_OPTION_INDEX = 10;
+        const Int32 DEADLINE_MONITORING_TIMEOUT = 11;
+        const Int32 NOTIFICATION_OPTION_INDEX = 12;
+        const Int32 NOTIFICATION_TYPE_INDEX = 13;
+        const Int32 NOTIFCATION_CALLBACK_NAME_INDEX = 14;
+        
         private DataGridView comDataGrid;
         private UInt32 send_msg_handle_index = 0; // 현재 전송 메시지 핸들 Index
         private UInt32 receive_msg_handle_index = 0; // 현재 수신 메시지 핸들 Index
@@ -98,6 +114,7 @@ namespace bsw_generation.LayerTab.ComTab
             return ret;
 
         }
+
         public void InitialLLayer()
         {
 
@@ -108,28 +125,89 @@ namespace bsw_generation.LayerTab.ComTab
             receiveMessageInfo.Clear();
             sendSingalInfo.Clear();
             receiveSingalInfo.Clear();
-            
+
+#if false           
+            DataGridViewComboBoxColumn comboBoxColumn = new DataGridViewComboBoxColumn();
+            comboBoxColumn.HeaderText = "DeadLineMonitoringOptiong";
+            comboBoxColumn.Name = "DeadLineMonitoringOptiong";
+            comboBoxColumn.Items.AddRange("DEACTIVE_DEADLINE_MONITORING", "ACTIVE_DEADLINE_MONITORING");
+
+            new string[] { "NOTIFICATION_DEACTIVE", "NOTIFICATION_ACTIVE" });
+#endif
             generalInfo.setDefaultComGeneralData();
             comDataGrid.Hide();
             comProperty.Hide();
-            comDataGrid.ColumnCount = 15;
-            comDataGrid.Columns[0].Name = "MsgName";
-            comDataGrid.Columns[1].Name = "Length";
-            comDataGrid.Columns[2].Name = "CycleTime";
-            comDataGrid.Columns[3].Name = "RepetitionCycleTime";
-            comDataGrid.Columns[4].Name = "RepetitionNumber";
-            comDataGrid.Columns[5].Name = "MessageDelayTime";
-            comDataGrid.Columns[6].Name = "SendMode";
-            comDataGrid.Columns[7].Name = "MsgID";
-            comDataGrid.Columns[8].Name = "StartOffsetDelay";
-            comDataGrid.Columns[9].Name = "MessageComSupport";
-            comDataGrid.Columns[10].Name = "DeadLineMonitoringOption";
-            comDataGrid.Columns[11].Name = "DeadLineMonitoringTimeout";
-            comDataGrid.Columns[12].Name = "NotificationOption";
-            comDataGrid.Columns[13].Name = "NotificationType";
-            comDataGrid.Columns[14].Name = "NotificationCallbackName";
 
-        }
+#if false
+            comDataGrid.Columns.Add("col0", "MsgName");
+            comDataGrid.Columns.Add("col1", "Length");
+#endif
+            //comDataGrid.ColumnCount = 0;
+            comDataGrid.AllowUserToResizeColumns = true;
+ 
+            comDataGrid.ColumnCount = 15;
+
+            comDataGrid.Columns[MSG_NAME_INDEX].Name = "MsgName";
+            comDataGrid.Columns[MSG_NAME_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[MSG_NAME_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[LENGTH_INDEX].Name = "Length";
+            comDataGrid.Columns[LENGTH_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[LENGTH_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[CYCLE_TIME_INDEX].Name = "CycleTime";
+            comDataGrid.Columns[CYCLE_TIME_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[CYCLE_TIME_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[REPETITION_CYCLE_INDEX].Name = "RepetitionCycleTime";
+            comDataGrid.Columns[REPETITION_CYCLE_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[REPETITION_CYCLE_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[REPETITION_NUMBER_INDEX].Name = "RepetitionNumber";
+            comDataGrid.Columns[REPETITION_NUMBER_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[REPETITION_NUMBER_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[MESSAGE_DELAY_TIME_INDEX].Name = "MessageDelayTime";
+            comDataGrid.Columns[MESSAGE_DELAY_TIME_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[MESSAGE_DELAY_TIME_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[SEND_MODE_INDEX].Name = "SendMode";
+            comDataGrid.Columns[SEND_MODE_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[SEND_MODE_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[MSG_ID_INDEX].Name = "MsgID";
+            comDataGrid.Columns[MSG_ID_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[MSG_ID_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+
+            comDataGrid.Columns[START_OFFSET_DELAY_INDEX].Name = "StartOffsetDelay";
+            comDataGrid.Columns[START_OFFSET_DELAY_INDEX].ValueType = typeof(uint);
+            comDataGrid.Columns[START_OFFSET_DELAY_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[MSG_COM_SUPPORT_INDEX].Name = "MessageComSupport";
+            comDataGrid.Columns[MSG_COM_SUPPORT_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[MSG_COM_SUPPORT_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[DEADLINE_MONITORING_OPTION_INDEX].Name = "DeadLineMonitoringOption";
+            comDataGrid.Columns[DEADLINE_MONITORING_OPTION_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[DEADLINE_MONITORING_OPTION_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].Name = "DeadLineMonitoringTimeout";
+            comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].ValueType = typeof(uint);
+            comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[NOTIFICATION_OPTION_INDEX].Name = "NotificationOption";
+            comDataGrid.Columns[NOTIFICATION_OPTION_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[NOTIFICATION_OPTION_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            comDataGrid.Columns[NOTIFICATION_TYPE_INDEX].Name = "NotificationType";
+            comDataGrid.Columns[NOTIFICATION_TYPE_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[NOTIFICATION_TYPE_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            
+            comDataGrid.Columns[NOTIFCATION_CALLBACK_NAME_INDEX].Name = "NotificationCallbackName";
+            comDataGrid.Columns[NOTIFCATION_CALLBACK_NAME_INDEX].ValueType = typeof(string);
+            comDataGrid.Columns[NOTIFCATION_CALLBACK_NAME_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+             }
 
         public void restartlLLayer()
         {
@@ -534,32 +612,32 @@ namespace bsw_generation.LayerTab.ComTab
         public void comPropertyChangedValue(string propertyLabel, object changedValue, object oldValue  )
         {
             object value;
-            int index;
-            if (propertyLabel == "MsgName")
+            //int index;
+
+            if (propertyLabel == "MsgName") //메시지이름이 변경되었을 경우
             {
                 value = changedValue;
                 //정해진 노드이름(MessageObject혹은 SendMessage등의 이름으로 메시지이름 변경을 시도할경우를 비교
                 if (checkDeletionConditionTreeNode(value.ToString()) == true)
                 {
                     //   current_treeview_event.Node.Text = value.ToString();
-                    mainTree.SelectedNode.Text = value.ToString();
-
+                    mainTree.SelectedNode.Text = value.ToString(); // Node Tree에 변경메시지이름을 설정한다.
                 }
-                else
+                else  
                 {
-                    mainTree.SelectedNode.Text = oldValue.ToString();
-                    for (index = 0; index < allMessageInfo.Count; index++)
+                    mainTree.SelectedNode.Text = oldValue.ToString();// Node Tree에 변경이전 메시지이름으로 복구한다.
+
+                    //부모 노드트리로 이름으로 메시지 이름이 설정된것을 리스트에서 찾아 이전 설정된값으로 복구한다.
+                    foreach (ComMessageAttributesInformation msg_object in allMessageInfo)
                     {
-                        foreach (ComMessageAttributesInformation msg_object in allMessageInfo)
+                        if (value.ToString() == msg_object.MsgName)
                         {
-                            if (value.ToString() == msg_object.MsgName)
-                            {
-                                msg_object.MsgName = oldValue.ToString();
-                                MessageBox.Show("message name cannot be the same as the parent node name");
-                                break;
-                            }
+                            msg_object.MsgName = oldValue.ToString();
+                            MessageBox.Show("message name cannot be the same as the parent node name");
+                            break;
                         }
                     }
+ 
                 }
 
             }
@@ -573,31 +651,206 @@ namespace bsw_generation.LayerTab.ComTab
                 else
                 {
                     mainTree.SelectedNode.Text = oldValue.ToString();
-                    for (index = 0; index < allSignalInfo.Count; index++)
+                    foreach (ComSignalAttributesInformation sig_object in allSignalInfo)
                     {
-                        foreach (ComSignalAttributesInformation sig_object in allSignalInfo)
+                        if (value.ToString() == sig_object.SignalName)
                         {
-                            if (value.ToString() == sig_object.SignalName)
-                            {
-                                sig_object.SignalName = oldValue.ToString();
-                                MessageBox.Show("message name cannot be the same as the parent node name");
-                                break;
-                            }
+                            sig_object.SignalName = oldValue.ToString();
+                            MessageBox.Show("message name cannot be the same as the parent node name");
+                            break;
                         }
                     }
+
                 }
             }
         }
 
+        public void comDataGridChangedValue(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBox.Show(String.Format("current Index = {0}", currentSelectTreeIndex));
+            if (currentSelectTreeIndex == SEND_MESSAGE_INFO_INDEX)
+            {
+
+                switch (e.ColumnIndex)
+                {
+                    case MSG_NAME_INDEX:
+                        string oldMsgName;
+                        string newMsgName;
+                        oldMsgName = sendMessageInfo.ElementAt(e.RowIndex).MsgName;
+                        newMsgName = comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        sendMessageInfo.ElementAt(e.RowIndex).MsgName = newMsgName;
+
+                        foreach (TreeNode searchNode in sendMessageTree.Nodes)
+                        {
+                            if (searchNode.Text == oldMsgName)
+                            { 
+                                searchNode.Text = newMsgName;
+                            }
+                        }
+                        break;
+
+                    case LENGTH_INDEX:
+                        //MessageBox.Show(String.Format("data = {0}", comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+                        sendMessageInfo.ElementAt(e.RowIndex).Length = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case CYCLE_TIME_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).CycleTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case REPETITION_CYCLE_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).RepetitionCycleTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case REPETITION_NUMBER_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).RepetitionNumber = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MESSAGE_DELAY_TIME_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).MessageDelayTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case SEND_MODE_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).SendMode = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MSG_ID_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).MsgID = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case START_OFFSET_DELAY_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).StartOffsetDelay = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MSG_COM_SUPPORT_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).MessageComSupport = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case DEADLINE_MONITORING_OPTION_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).DeadLineMonitoringOption = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case DEADLINE_MONITORING_TIMEOUT:
+                        sendMessageInfo.ElementAt(e.RowIndex).DeadLineMonitoringTimeout = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFICATION_OPTION_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).NotificationOption = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFICATION_TYPE_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).NotificationType = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFCATION_CALLBACK_NAME_INDEX:
+                        sendMessageInfo.ElementAt(e.RowIndex).NotificationCallbackName = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    default:
+                        MessageBox.Show("Unknow Attribute");
+                        break;
+                }
+
+            }
+            else if (currentSelectTreeIndex == RECEIVE_MESSAGE_INFO_INDEX)
+            {
+               
+                switch (e.ColumnIndex)
+                {
+                    case MSG_NAME_INDEX:
+                        string oldMsgName;
+                        string newMsgName;
+                        oldMsgName = receiveMessageInfo.ElementAt(e.RowIndex).MsgName;
+                        newMsgName = comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                        receiveMessageInfo.ElementAt(e.RowIndex).MsgName = newMsgName;
+
+                        foreach (TreeNode searchNode in receiveMessageTree.Nodes)
+                        {
+                            if (searchNode.Text == oldMsgName)
+                            {
+                                searchNode.Text = newMsgName;
+                            }
+                        }
+                        break;
+
+                    case LENGTH_INDEX:
+                        //MessageBox.Show(String.Format("data = {0}", comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()));
+                        receiveMessageInfo.ElementAt(e.RowIndex).Length = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case CYCLE_TIME_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).CycleTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case REPETITION_CYCLE_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).RepetitionCycleTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case REPETITION_NUMBER_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).RepetitionNumber = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MESSAGE_DELAY_TIME_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).MessageDelayTime = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case SEND_MODE_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).SendMode = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MSG_ID_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).MsgID = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case START_OFFSET_DELAY_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).StartOffsetDelay = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case MSG_COM_SUPPORT_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).MessageComSupport = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case DEADLINE_MONITORING_OPTION_INDEX:
+                        MessageBox.Show("deadline");
+                        receiveMessageInfo.ElementAt(e.RowIndex).DeadLineMonitoringOption = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case DEADLINE_MONITORING_TIMEOUT:
+                        receiveMessageInfo.ElementAt(e.RowIndex).DeadLineMonitoringTimeout = (uint)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFICATION_OPTION_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).NotificationOption = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFICATION_TYPE_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).NotificationType = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    case NOTIFCATION_CALLBACK_NAME_INDEX:
+                        receiveMessageInfo.ElementAt(e.RowIndex).NotificationCallbackName = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+                        break;
+
+                    default:
+                        MessageBox.Show("Unknow Attribute");
+                        break;
+                }
+            }
+            else
+            {
+                ;
+            }
+
+        }
+
         public void COMPropertyDisplay(string objName)
         {
+            int rowIndex = 0;
             switch (objName)
             {
                 case "General": /* Display Property */
                     comProperty.Show();
                     comDataGrid.Hide();
-                    MessageBox.Show("general");
-                    comProperty.SelectedObject = generalInfo;
                     currentSelectTreeIndex = GENERAL_INFO_INDEX;
                     break;
 
@@ -607,7 +860,6 @@ namespace bsw_generation.LayerTab.ComTab
                     comProperty.Hide();
                     comProperty.SelectedObject = null;
                     currentSelectTreeIndex = MESSAGE_OBJECT_INFO_INDEX;
-                    MessageBox.Show("Message Objec");
                     break;
 
                 case "SendMessage":  /* Display DataGridView*/
@@ -619,13 +871,47 @@ namespace bsw_generation.LayerTab.ComTab
 
                     /*Display all attribute of SendMessage */
                     comDataGrid.Rows.Clear();
-                    foreach (ComMessageAttributesInformation msg_object in sendMessageInfo)
+                    foreach (ComMessageAttributesInformation msg_object in sendMessageInfo) 
                     {
-                        comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
-                                             msg_object.MessageDelayTime, msg_object.SendMode, msg_object.MsgID, msg_object.StartOffsetDelay, msg_object.MessageComSupport, msg_object.DeadLineMonitoringOption,
-                                             msg_object.DeadLineMonitoringTimeout, msg_object.NotificationOption, msg_object.NotificationType, msg_object.NotificationCallbackName);
+                        //comDataGrid.Rows.Add.cellrowindex
+#if true
+
+                        //, comsupport
+                        DataGridViewComboBoxCell sendModecomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell comSupportcomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell deadLineOptioncomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell notificationOptioncomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell notificationTypecomboBoxColumn = new DataGridViewComboBoxCell();
+
+                        
+                        sendModecomboBoxColumn.Items.AddRange("NON_SEND_MODE", "DTM", "PTM", "MTM");
+                        comSupportcomboBoxColumn.Items.AddRange("TRUE","FALSE");
+                        deadLineOptioncomboBoxColumn.Items.AddRange("DEACTIVE_DEADLINE_MONITORING", "ACTIVE_DEADLINE_MONITORING");
+                        notificationOptioncomboBoxColumn.Items.AddRange("NOTIFICATION_DEACTIVE", "NOTIFICATION_ACTIVE");
+                        notificationTypecomboBoxColumn.Items.AddRange("NOTIFCATION_INDICATE", "NOTIFCATION_CALLBACK", "ALL");
+#endif
+                        rowIndex = comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
+                                             msg_object.MessageDelayTime, null/*sendmode*/, msg_object.MsgID, msg_object.StartOffsetDelay, null/*message com support*/, null/*deadline option */,
+                                             msg_object.DeadLineMonitoringTimeout, null/*notification option*/, null/*notification type*/, msg_object.NotificationCallbackName);
+              
+                        sendModecomboBoxColumn.Value = msg_object.SendMode;
+                        comDataGrid.Rows[rowIndex].Cells[SEND_MODE_INDEX] = sendModecomboBoxColumn; 
+
+                        comSupportcomboBoxColumn.Value = msg_object.MessageComSupport;
+                        comDataGrid.Rows[rowIndex].Cells[MSG_COM_SUPPORT_INDEX] = comSupportcomboBoxColumn;
+
+                        notificationOptioncomboBoxColumn.Value = msg_object.NotificationOption;
+                        comDataGrid.Rows[rowIndex].Cells[NOTIFICATION_OPTION_INDEX] = notificationOptioncomboBoxColumn;
+
+                        notificationTypecomboBoxColumn.Value = msg_object.NotificationType;
+                        comDataGrid.Rows[rowIndex].Cells[NOTIFICATION_TYPE_INDEX] = notificationTypecomboBoxColumn;
+
+                        deadLineOptioncomboBoxColumn.Value = msg_object.DeadLineMonitoringOption;
+                        comDataGrid.Rows[rowIndex].Cells[DEADLINE_MONITORING_OPTION_INDEX] = deadLineOptioncomboBoxColumn;
+
 
                         /*
+
                         (msg_object.MsgName)
                         {
                             comProperty.SelectedObject = msg_object;
@@ -645,28 +931,48 @@ namespace bsw_generation.LayerTab.ComTab
                     //current_treeview_event = e;
                     comDataGrid.Show();
                     comProperty.Hide();
-                    comProperty.SelectedObject = null; // dataGrid변환
+                    comProperty.SelectedObject = null; // dataGrid 변환
                     currentSelectTreeIndex = RECEIVE_MESSAGE_INFO_INDEX;
 
-                    comDataGrid.Rows.Clear();
                     /*Display all attribute of SendMessage */
+                    comDataGrid.Rows.Clear();
                     foreach (ComMessageAttributesInformation msg_object in receiveMessageInfo)
                     {
-                        comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
-                                             msg_object.MessageDelayTime, msg_object.SendMode, msg_object.MsgID, msg_object.StartOffsetDelay, msg_object.MessageComSupport, msg_object.DeadLineMonitoringOption,
-                                             msg_object.DeadLineMonitoringTimeout, msg_object.NotificationOption, msg_object.NotificationType, msg_object.NotificationCallbackName);
+                        //comDataGrid.Rows.Add.cellrowindex
+#if true
 
-                        /*
-                        (msg_object.MsgName)
-                        {
-                            comProperty.SelectedObject = msg_object;
-                            break;
-                        }
-                        else
-                        {
-                            ;
-                        }
-                        */
+                        //, comsupport
+                        DataGridViewComboBoxCell sendModecomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell comSupportcomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell deadLineOptioncomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell notificationOptioncomboBoxColumn = new DataGridViewComboBoxCell();
+                        DataGridViewComboBoxCell notificationTypecomboBoxColumn = new DataGridViewComboBoxCell();
+
+
+                        sendModecomboBoxColumn.Items.AddRange("NON_SEND_MODE", "DTM", "PTM", "MTM");
+                        comSupportcomboBoxColumn.Items.AddRange("TRUE", "FALSE");
+                        deadLineOptioncomboBoxColumn.Items.AddRange("DEACTIVE_DEADLINE_MONITORING", "ACTIVE_DEADLINE_MONITORING");
+                        notificationOptioncomboBoxColumn.Items.AddRange("NOTIFICATION_DEACTIVE", "NOTIFICATION_ACTIVE");
+                        notificationTypecomboBoxColumn.Items.AddRange("NOTIFCATION_INDICATE", "NOTIFCATION_CALLBACK", "ALL");
+#endif
+                        rowIndex = comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
+                                             msg_object.MessageDelayTime, null/*sendmode*/, msg_object.MsgID, msg_object.StartOffsetDelay, null/*message com support*/, null/*deadline option */,
+                                             msg_object.DeadLineMonitoringTimeout, null/*notification option*/, null/*notification type*/, msg_object.NotificationCallbackName);
+
+                        sendModecomboBoxColumn.Value = msg_object.SendMode;
+                        comDataGrid.Rows[rowIndex].Cells[SEND_MODE_INDEX] = sendModecomboBoxColumn;
+
+                        comSupportcomboBoxColumn.Value = msg_object.MessageComSupport;
+                        comDataGrid.Rows[rowIndex].Cells[MSG_COM_SUPPORT_INDEX] = comSupportcomboBoxColumn;
+
+                        notificationOptioncomboBoxColumn.Value = msg_object.NotificationOption;
+                        comDataGrid.Rows[rowIndex].Cells[NOTIFICATION_OPTION_INDEX] = notificationOptioncomboBoxColumn;
+
+                        notificationTypecomboBoxColumn.Value = msg_object.NotificationType;
+                        comDataGrid.Rows[rowIndex].Cells[NOTIFICATION_TYPE_INDEX] = notificationTypecomboBoxColumn;
+
+                        deadLineOptioncomboBoxColumn.Value = msg_object.DeadLineMonitoringOption;
+                        comDataGrid.Rows[rowIndex].Cells[DEADLINE_MONITORING_OPTION_INDEX] = deadLineOptioncomboBoxColumn;
                     }
                     break;
 
