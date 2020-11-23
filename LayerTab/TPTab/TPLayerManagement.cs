@@ -31,7 +31,6 @@ namespace bsw_generation.LayerTab.TPTab
 
         public void restartTPLayer()
         {
-
             commonTree = mainTree.Nodes.Add("Common");
             connectionTree = mainTree.Nodes.Add("TPConnectionList");
             tpHandleIndex = 0;
@@ -114,6 +113,7 @@ namespace bsw_generation.LayerTab.TPTab
                 default:
                     if (mainTree.SelectedNode.Parent.Text == "TPConnectionList")
                     {
+                        
                         foreach (TPMessageAttributesInformation tpMsgObject in tpMessageInfo)
                         {
                             if (objName == tpMsgObject.TpConnectionName)
@@ -131,6 +131,47 @@ namespace bsw_generation.LayerTab.TPTab
                     break;
 
             }
+        }
+
+        public void TPXmlToDataUpdate(TPCommon xmlTPCommonInfo, LinkedList<TPMessageAttributesInformation> xmlTPConnectInfo)
+        {
+            //tpMessageInfo
+            tpCommonInfo.ReceiveMaxSize = xmlTPCommonInfo.ReceiveMaxSize;
+            tpCommonInfo.TPTaskCallTime = xmlTPCommonInfo.TPTaskCallTime;
+            string connectionName;
+            foreach (var connectObject in xmlTPConnectInfo)
+            {
+                TPMessageAttributesInformation tpConnectObject = new TPMessageAttributesInformation();
+                
+                connectionName = string.Format("connection{0}", connectObject.TPHandle);
+
+                tpConnectObject.TPHandle = connectObject.TPHandle;
+                
+                tpConnectObject.AddressMode = connectObject.AddressMode;
+                tpConnectObject.UseFlowControl = connectObject.UseFlowControl;
+                tpConnectObject.UseBlockSize = connectObject.UseBlockSize;
+                tpConnectObject.UseSTmin = connectObject.UseSTmin;
+                tpConnectObject.BlockSize = connectObject.BlockSize;
+                tpConnectObject.STmin = connectObject.STmin;
+                tpConnectObject.FirstSN = connectObject.FirstSN;
+                tpConnectObject.SendMsgID = connectObject.SendMsgID;
+                tpConnectObject.ReceiveMsgID = connectObject.ReceiveMsgID;
+                tpConnectObject.SendMsgName = connectObject.SendMsgName;
+                tpConnectObject.ReceiveMsgName = connectObject.ReceiveMsgName;
+                tpConnectObject.N_As = connectObject.N_As;
+                tpConnectObject.N_Bs = connectObject.N_Bs;
+                tpConnectObject.N_Ar = connectObject.N_Ar;
+                tpConnectObject.N_Cr = connectObject.N_Cr;
+                tpConnectObject.WaitMode = connectObject.WaitMode;
+                tpConnectObject.WftMax = connectObject.WftMax;
+                tpConnectObject.WftMaxTime = connectObject.WftMaxTime;
+                tpConnectObject.Pad = connectObject.Pad;
+                tpConnectObject.TpConnectionName = connectionName;
+                connectionTree.Nodes.Add(connectionName);
+                tpMessageInfo.AddLast(tpConnectObject);
+                tpHandleIndex++;
+            }
+
         }
 
         public TPCommon CommonInfo

@@ -12,7 +12,7 @@ namespace bsw_generation.LayerTab.TPTab
     class TPCommon:bsw_generation.AttributeControlClass.AttributeControlClass
     {
         //INDIVIDUAL
-/*
+        
         private string addressMode = "NORMAL_ADDRESS";
         private string addressType = "PHYSICAL";
         private UInt32 baseAddress = 0x400;
@@ -36,7 +36,7 @@ namespace bsw_generation.LayerTab.TPTab
         private UInt16 wftMax = 0;
         private string waitMode = "FALSE";
         private UInt16 pad = 0xFF;
-*/
+
         private UInt16 taskTime = 5;
         private UInt16 protocolDLC = 8;
         private UInt32 receiveMaxSize = 4095;
@@ -52,7 +52,7 @@ namespace bsw_generation.LayerTab.TPTab
             set { taskTime = value; }
         }
 
-        [Browsable(true)]
+        [Browsable(false)]
         [DisplayName("communication protocol DLC")]
         [Category("\tCommon Information")]
         [ReadOnlyAttribute(false)]
@@ -73,7 +73,7 @@ namespace bsw_generation.LayerTab.TPTab
             get { return receiveMaxSize; }
             set { receiveMaxSize = value; }
         }
-#if FALSE
+#if false
         [Browsable(true)]
         [DisplayName("address mode")]
         [Category("Common ISO TP Property ")]

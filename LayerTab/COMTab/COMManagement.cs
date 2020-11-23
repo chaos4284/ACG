@@ -8,9 +8,23 @@ using System.Text;
 
 using System.Windows.Forms;
 using bsw_generation.DatabaseParser.CAN;
+using System.Reflection;
+
 
 namespace bsw_generation.LayerTab.ComTab
 {
+    /*This is Extension class to improve DatagridView Peformance  .*/
+    public static class ExtensionMethods
+    {
+        /*Implement Double Bufferd */
+        public  static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
+        }
+    }
+
     class ComManagement
     {
         const Byte GENERAL_INFO_INDEX = 1;
@@ -142,7 +156,7 @@ namespace bsw_generation.LayerTab.ComTab
             comDataGrid.Columns.Add("col0", "MsgName");
             comDataGrid.Columns.Add("col1", "Length");
 #endif
-            //comDataGrid.ColumnCount = 0;
+            comDataGrid.DoubleBuffered(true);
             comDataGrid.AllowUserToResizeColumns = true;
  
             comDataGrid.ColumnCount = 15;
@@ -175,6 +189,10 @@ namespace bsw_generation.LayerTab.ComTab
             comDataGrid.Columns[SEND_MODE_INDEX].ValueType = typeof(string);
             comDataGrid.Columns[SEND_MODE_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
+
+            DataGridViewCellStyle style = new DataGridViewCellStyle();
+            style.Format = "X";
+            this.comDataGrid.Columns[MSG_ID_INDEX].DefaultCellStyle = style;
             comDataGrid.Columns[MSG_ID_INDEX].Name = "MsgID";
             comDataGrid.Columns[MSG_ID_INDEX].ValueType = typeof(uint);
             comDataGrid.Columns[MSG_ID_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -193,7 +211,7 @@ namespace bsw_generation.LayerTab.ComTab
             comDataGrid.Columns[DEADLINE_MONITORING_OPTION_INDEX].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].Name = "DeadLineMonitoringTimeout";
-            comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].ValueType = typeof(uint);
+            comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].ValueType = typeof(UInt16);
             comDataGrid.Columns[DEADLINE_MONITORING_TIMEOUT].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             comDataGrid.Columns[NOTIFICATION_OPTION_INDEX].Name = "NotificationOption";
@@ -350,7 +368,7 @@ namespace bsw_generation.LayerTab.ComTab
 
             return ret;
         }
-        public void ilXmlToDataUpdate(LinkedList<ComMessageAttributesInformation> xmlMessageObject, LinkedList<ComSignalAttributesInformation> xmlSignalObject, COMGeneral xmlGeneralInfo)
+        public void ILXmlToDataUpdate(LinkedList<ComMessageAttributesInformation> xmlMessageObject, LinkedList<ComSignalAttributesInformation> xmlSignalObject, COMGeneral xmlGeneralInfo)
         {
             generalInfo.StartCOMExtensionOption = xmlGeneralInfo.StartCOMExtensionOption;
             generalInfo.ComTaskTime = xmlGeneralInfo.ComTaskTime;
@@ -664,10 +682,12 @@ namespace bsw_generation.LayerTab.ComTab
                 }
             }
         }
-
+        
+        
+       
         public void comDataGridChangedValue(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show(String.Format("current Index = {0}", currentSelectTreeIndex));
+            //MessageBox.Show(String.Format("current Index = {0}", currentSelectTreeIndex));
             if (currentSelectTreeIndex == SEND_MESSAGE_INFO_INDEX)
             {
 
@@ -851,6 +871,7 @@ namespace bsw_generation.LayerTab.ComTab
                 case "General": /* Display Property */
                     comProperty.Show();
                     comDataGrid.Hide();
+                    comProperty.SelectedObject = generalInfo;
                     currentSelectTreeIndex = GENERAL_INFO_INDEX;
                     break;
 
@@ -871,6 +892,8 @@ namespace bsw_generation.LayerTab.ComTab
 
                     /*Display all attribute of SendMessage */
                     comDataGrid.Rows.Clear();
+
+                    /*Message Data of current node add to DataGrid. */
                     foreach (ComMessageAttributesInformation msg_object in sendMessageInfo) 
                     {
                         //comDataGrid.Rows.Add.cellrowindex
@@ -893,7 +916,7 @@ namespace bsw_generation.LayerTab.ComTab
                         rowIndex = comDataGrid.Rows.Add(msg_object.MsgName, msg_object.Length, msg_object.CycleTime, msg_object.RepetitionCycleTime, msg_object.RepetitionNumber,
                                              msg_object.MessageDelayTime, null/*sendmode*/, msg_object.MsgID, msg_object.StartOffsetDelay, null/*message com support*/, null/*deadline option */,
                                              msg_object.DeadLineMonitoringTimeout, null/*notification option*/, null/*notification type*/, msg_object.NotificationCallbackName);
-              
+
                         sendModecomboBoxColumn.Value = msg_object.SendMode;
                         comDataGrid.Rows[rowIndex].Cells[SEND_MODE_INDEX] = sendModecomboBoxColumn; 
 

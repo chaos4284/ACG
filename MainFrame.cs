@@ -279,17 +279,53 @@ namespace bsw_generation
             else if (result == DialogResult.Cancel)
             {
                 /*파일 경로를 이전 경로로 업데이트 한다. */
-                filePathDialog.updateGenerationFilePath(generationPath, databasePath, selectNode);
+                filePathDialog.UpdateGenerationFilePath(generationPath, databasePath, selectNode);
             }
         }
 
 
         /*File Menu -> New */
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*현재 트리뷰에 있는 메시지 및 시그널 정보를 초기화 한다. */
-            initLayerModule();
-            restartLayerModule();
+        {          
+            DialogResult selectSaveConfigureation;
+            SaveFileDialog saveConfigurationFilePathDialog;
+            DialogResult saveConfigurationResult;
+
+            string configurationFilePath = "";
+            saveConfigurationFilePathDialog = new SaveFileDialog();
+            saveConfigurationFilePathDialog.FileName = "test.cfg";
+            saveConfigurationFilePathDialog.InitialDirectory = @"D:\";
+            saveConfigurationFilePathDialog.Filter = "configuration files (*.cfg)|*.cfg";
+
+            selectSaveConfigureation = MessageBox.Show("Save Configuration?", "New",MessageBoxButtons.OKCancel);
+
+            if (selectSaveConfigureation == DialogResult.OK)
+            {
+                saveConfigurationResult = saveConfigurationFilePathDialog.ShowDialog();
+
+                if (saveConfigurationResult == DialogResult.OK)
+                {
+                    configurationFilePath = saveConfigurationFilePathDialog.FileName;
+                    fileMenuOperation.savePathInfo(configurationFilePath, filePathDialog.GenerationFilePath, filePathDialog.SelectNodeName, filePathDialog.DataBaseFilePath);
+
+                    //COM 메시지 정보, 시그널정보 및 일반 옵션정보를 전달한다.
+                    fileMenuOperation.ILSaveConfigurationFile(configurationFilePath, COMManagement.AllMessageInfo, COMManagement.AllSingalInfo, COMManagement.GeneralInfo);
+                    initLayerModule();
+                    restartLayerModule();
+                    filePathDialog.ClearConfigurationPath();
+                }
+                else
+                {
+
+                }
+            }
+            else
+            {
+                initLayerModule();
+                restartLayerModule();
+                filePathDialog.ClearConfigurationPath();
+            }
+
         }
 
         /*현재 설정된 메시지 혹은 시그널들의 정보를 저장한다. */
@@ -312,7 +348,8 @@ namespace bsw_generation
                 fileMenuOperation.savePathInfo(configurationFilePath, filePathDialog.GenerationFilePath, filePathDialog.SelectNodeName, filePathDialog.DataBaseFilePath);
 
                 //COM 메시지 정보, 시그널정보 및 일반 옵션정보를 전달한다.
-                fileMenuOperation.ilSaveConfigurationFile(configurationFilePath, COMManagement.AllMessageInfo, COMManagement.AllSingalInfo, COMManagement.GeneralInfo);
+                fileMenuOperation.ILSaveConfigurationFile(configurationFilePath, COMManagement.AllMessageInfo, COMManagement.AllSingalInfo, COMManagement.GeneralInfo);
+                fileMenuOperation.TPSaveConfigurationFile(configurationFilePath, TPManagement.CommonInfo,TPManagement.TPMessageInfo);
             }
             else
             {
@@ -323,12 +360,15 @@ namespace bsw_generation
         /*File Menu -> Load */
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            OpenFileDialog loadConfigurationFilePathDialog = new OpenFileDialog();
+            DialogResult loadConfigurationResult;
+
             LinkedList<ComMessageAttributesInformation> getMessageInfo = new LinkedList<ComMessageAttributesInformation>();
             LinkedList<ComSignalAttributesInformation> getSignalInfo = new LinkedList<ComSignalAttributesInformation>();
             COMGeneral getGeneralInfo = new COMGeneral();
-            OpenFileDialog loadConfigurationFilePathDialog = new OpenFileDialog();
-            DialogResult loadConfigurationResult;
+
+            LinkedList<TPMessageAttributesInformation> getTPMessageInfo = new LinkedList<TPMessageAttributesInformation>();
+            TPCommon getTPConmmonInfo = new TPCommon();
             string configurationFilePath = "";
             
             loadConfigurationFilePathDialog.FileName = "";
@@ -348,12 +388,14 @@ namespace bsw_generation
 
                 /*Configuration파일내에 xml내용을 파싱해서 각종 정보를 가져온다. */
                 fileMenuOperation.loadPathInfo(configurationFilePath, ref selectNode, ref generationPath, ref databasePath);
-                fileMenuOperation.ilLoadConfigurationFile(configurationFilePath, getMessageInfo, getSignalInfo, getGeneralInfo);
-
-                COMManagement.ilXmlToDataUpdate(getMessageInfo, getSignalInfo, getGeneralInfo);
+                fileMenuOperation.ILLoadConfigurationFile(configurationFilePath, getMessageInfo, getSignalInfo, getGeneralInfo);
+                fileMenuOperation.TPLoadConfigurationFile(configurationFilePath, getTPConmmonInfo, getTPMessageInfo);
+                
+                COMManagement.ILXmlToDataUpdate(getMessageInfo, getSignalInfo, getGeneralInfo);
+                TPManagement.TPXmlToDataUpdate(getTPConmmonInfo, getTPMessageInfo);
 
                 /*파일 경로를 업데이트 한다. */
-                filePathDialog.updateGenerationFilePath(generationPath, databasePath, selectNode);
+                filePathDialog.UpdateGenerationFilePath(generationPath, databasePath, selectNode);
                 MessageBox.Show("Load Complete");               
             }
             else

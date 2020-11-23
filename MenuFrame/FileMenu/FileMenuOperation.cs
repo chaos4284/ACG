@@ -11,14 +11,14 @@ using System.Text;
 using bsw_generation.DatabaseParser;
 using System.Windows.Forms;
 using bsw_generation.LayerTab.ComTab;
-
+using bsw_generation.LayerTab.TPTab;
 namespace bsw_generation.MenuFrame.FileMenu
 {
     class FileMenuOperation
     {
         public FileMenuOperation()
         {
-  
+
         }
 
         public void savePathInfo(string selectPath, string generationPath, string dbNode, string databasePath)
@@ -50,7 +50,7 @@ namespace bsw_generation.MenuFrame.FileMenu
             saveConfigPathInformation.Save(selectPath);
         }
 
-        public void ilSaveConfigurationFile(string selectPath, LinkedList<ComMessageAttributesInformation> ilMessageInfo, LinkedList<ComSignalAttributesInformation> ilSignalInfo, COMGeneral ilGeneralInfo)
+        public void ILSaveConfigurationFile(string selectPath, LinkedList<ComMessageAttributesInformation> ilMessageInfo, LinkedList<ComSignalAttributesInformation> ilSignalInfo, COMGeneral ilGeneralInfo)
         {
             LinkedList<XmlNode> message_list = new LinkedList<XmlNode>();
             LinkedList<XmlNode> signal_list = new LinkedList<XmlNode>();
@@ -70,7 +70,7 @@ namespace bsw_generation.MenuFrame.FileMenu
             startCOMExtensionOption.InnerText = ilGeneralInfo.StartCOMExtensionOption;
             general.AppendChild(startCOMExtensionOption);
 
-            XmlNode CallTaskTime = saveConfigObjectInformation.CreateElement("CallTaskTime");
+            XmlNode CallTaskTime = saveConfigObjectInformation.CreateElement("ComCallTaskTime");
             CallTaskTime.InnerText = string.Format("{0}", ilGeneralInfo.ComTaskTime);
             general.AppendChild(CallTaskTime);
 
@@ -255,10 +255,13 @@ namespace bsw_generation.MenuFrame.FileMenu
             root.AppendChild(signal_object);
             /*========================SignalObject OPTION XML ========================*/
 
+
+
             saveConfigObjectInformation.AppendChild(root);
             //root.AppendChild(general);
             //root.AppendChild(message_object);
             saveConfigObjectInformation.Save(selectPath);
+
 
             //saveConfigObjectInformation.Save("a.xml");
             /*MessageObject XML*/
@@ -272,8 +275,138 @@ namespace bsw_generation.MenuFrame.FileMenu
             //config_file_fp.Close();       
 
         }
+        /*Save TP Inforamation to xml. */
+        public void TPSaveConfigurationFile(string selectPath, TPCommon tpCommonInfo, LinkedList<TPMessageAttributesInformation> tpMessageInfo)
+        {
+            /*Root Option*/
+            XmlDocument saveConfigObjectInformation = new XmlDocument();
+            LinkedList<XmlNode> tpConnectionList = new LinkedList<XmlNode>();
+            saveConfigObjectInformation.Load(selectPath);
+            /*Root Option*/
+            XmlNode root = saveConfigObjectInformation.SelectSingleNode("GenerationInformation");
 
-        public void loadPathInfo(string selectPath,ref string dbNode, ref string generationPath, ref string databasePath)
+
+            /*========================TP OPTION COMMON XML ========================*/
+            XmlNode common = saveConfigObjectInformation.CreateElement("Common"); /* root */
+
+            XmlNode receveBufferMax = saveConfigObjectInformation.CreateElement("ReceiveBufferMax");
+            receveBufferMax.InnerText = string.Format("{0}", tpCommonInfo.ReceiveMaxSize);
+            common.AppendChild(receveBufferMax);
+
+            XmlNode CallTaskTime = saveConfigObjectInformation.CreateElement("TPCallTaskTime");
+            CallTaskTime.InnerText = string.Format("{0}", tpCommonInfo.TPTaskCallTime);
+            common.AppendChild(CallTaskTime);
+
+            root.AppendChild(common);
+
+            /*========================TP OPTION COMMON XML ========================*/
+
+            /*========================TP OPTION TP INFO XML ========================*/
+            XmlNode tpMessageObject = saveConfigObjectInformation.CreateElement("TPInformation"); /* root */
+
+
+            foreach (var tpObject in tpMessageInfo)
+            {
+                XmlNode tpConnection = saveConfigObjectInformation.CreateElement("TPConnection");
+
+                XmlAttribute tpHandle = saveConfigObjectInformation.CreateAttribute("TPHandle");
+                tpHandle.Value = string.Format("{0}", tpObject.TPHandle);
+                tpConnection.Attributes.Append(tpHandle);
+
+                XmlAttribute addressMode = saveConfigObjectInformation.CreateAttribute("AddressMode");
+                addressMode.Value = tpObject.AddressMode;
+                tpConnection.Attributes.Append(addressMode);
+
+                XmlAttribute useFlowControl = saveConfigObjectInformation.CreateAttribute("UseFlowControl");
+                useFlowControl.Value = tpObject.UseFlowControl;
+                tpConnection.Attributes.Append(useFlowControl);
+
+                XmlAttribute useBlockSize = saveConfigObjectInformation.CreateAttribute("UseBlockSize");
+                useBlockSize.Value = tpObject.UseBlockSize;
+                tpConnection.Attributes.Append(useBlockSize);
+
+                XmlAttribute useSTmin = saveConfigObjectInformation.CreateAttribute("UseSTmin");
+                useSTmin.Value = tpObject.UseSTmin;
+                tpConnection.Attributes.Append(useSTmin);
+
+                XmlAttribute blockSize = saveConfigObjectInformation.CreateAttribute("BlockSize");
+                blockSize.Value = string.Format("{0}", tpObject.BlockSize);
+                tpConnection.Attributes.Append(blockSize);
+
+                XmlAttribute STmin = saveConfigObjectInformation.CreateAttribute("STmin");
+                STmin.Value = string.Format("{0}", tpObject.STmin);
+                tpConnection.Attributes.Append(STmin);
+
+                XmlAttribute firstSequenceNumber = saveConfigObjectInformation.CreateAttribute("FirstSequenceNumber");
+                firstSequenceNumber.Value = string.Format("{0}", tpObject.FirstSN);
+                tpConnection.Attributes.Append(firstSequenceNumber);
+
+                XmlAttribute tpSendID = saveConfigObjectInformation.CreateAttribute("TPSendID");
+                tpSendID.Value = string.Format("{0}", tpObject.SendMsgID);
+                tpConnection.Attributes.Append(tpSendID);
+
+                XmlAttribute tpReceiveID = saveConfigObjectInformation.CreateAttribute("TPReceiveID");
+                tpReceiveID.Value = string.Format("{0}", tpObject.ReceiveMsgID);
+                tpConnection.Attributes.Append(tpReceiveID);
+
+                XmlAttribute tpSendMsgName = saveConfigObjectInformation.CreateAttribute("TPSendMsgName");
+                tpSendMsgName.Value = tpObject.SendMsgName;
+                tpConnection.Attributes.Append(tpSendMsgName);
+
+                XmlAttribute tpReceiveMsgName = saveConfigObjectInformation.CreateAttribute("TPRecevieMsgName");
+                tpReceiveMsgName.Value = tpObject.ReceiveMsgName;
+                tpConnection.Attributes.Append(tpReceiveMsgName);
+
+                XmlAttribute nASTimeout = saveConfigObjectInformation.CreateAttribute("ASTimeout");
+                nASTimeout.Value = string.Format("{0}", tpObject.N_As);
+                tpConnection.Attributes.Append(nASTimeout);
+
+                XmlAttribute nBSTimeout = saveConfigObjectInformation.CreateAttribute("BSTimeout");
+                nBSTimeout.Value = string.Format("{0}", tpObject.N_Bs);
+                tpConnection.Attributes.Append(nBSTimeout);
+
+                XmlAttribute nARTimeout = saveConfigObjectInformation.CreateAttribute("ARTimeout");
+                nARTimeout.Value = string.Format("{0}", tpObject.N_Ar);
+                tpConnection.Attributes.Append(nARTimeout);
+
+                XmlAttribute nCRTimeout = saveConfigObjectInformation.CreateAttribute("CRTimeout");
+                nCRTimeout.Value = string.Format("{0}", tpObject.N_Cr);
+                tpConnection.Attributes.Append(nCRTimeout);
+
+                XmlAttribute waitingMode = saveConfigObjectInformation.CreateAttribute("WaitingMode");
+                waitingMode.Value = tpObject.WaitMode;
+                tpConnection.Attributes.Append(waitingMode);
+
+                XmlAttribute wftMax = saveConfigObjectInformation.CreateAttribute("WftMax");
+                wftMax.Value = string.Format("{0}", tpObject.WftMax);
+                tpConnection.Attributes.Append(wftMax);
+
+                XmlAttribute wftMaxTime = saveConfigObjectInformation.CreateAttribute("WftMaxTime");
+                wftMaxTime.Value = string.Format("{0}", tpObject.WftMaxTime);
+                tpConnection.Attributes.Append(wftMaxTime);
+
+                XmlAttribute pad = saveConfigObjectInformation.CreateAttribute("PAD");
+                pad.Value = string.Format("{0}", tpObject.Pad);
+                tpConnection.Attributes.Append(pad);
+                tpConnectionList.AddLast(tpConnection);
+
+            }
+
+            foreach (var list in tpConnectionList)
+            {
+                tpMessageObject.AppendChild(list);
+            }
+
+            root.AppendChild(tpMessageObject);
+            /*========================TP OPTION TP INFO XML ========================*/
+
+            root.AppendChild(tpMessageObject);
+            saveConfigObjectInformation.AppendChild(root);
+
+            saveConfigObjectInformation.Save(selectPath);
+
+        }
+        public void loadPathInfo(string selectPath, ref string dbNode, ref string generationPath, ref string databasePath)
         {
             XmlReader loadConfigInformation;
             XmlReaderSettings loadConfigSetting = new XmlReaderSettings();
@@ -297,17 +430,17 @@ namespace bsw_generation.MenuFrame.FileMenu
             loadConfigInformation.Close();
         }
 
-        public void ilLoadConfigurationFile(string selectPath, LinkedList<ComMessageAttributesInformation> ilMessageInfo, LinkedList<ComSignalAttributesInformation> ilSignalInfo, COMGeneral ilGeneralInfo)
+        public void ILLoadConfigurationFile(string selectPath, LinkedList<ComMessageAttributesInformation> ilMessageInfo, LinkedList<ComSignalAttributesInformation> ilSignalInfo, COMGeneral ilGeneralInfo)
         {
-            XmlReader  loadConfigInformation;
+            XmlReader loadConfigInformation;
             string message_load_config_content = "";
             string siganl_load_config_content = "";
             XmlReaderSettings loadConfigSetting = new XmlReaderSettings();
-            
+
             loadConfigSetting.IgnoreComments = true;
             loadConfigSetting.IgnoreWhitespace = true;
 
-            loadConfigInformation = XmlReader.Create(selectPath,loadConfigSetting);
+            loadConfigInformation = XmlReader.Create(selectPath, loadConfigSetting);
             //loadConfigInformation.Load(selectPath);
 
             while (loadConfigInformation.Read())
@@ -319,7 +452,7 @@ namespace bsw_generation.MenuFrame.FileMenu
                     ilGeneralInfo.StartCOMExtensionOption = loadConfigInformation.Value;
                 }
 
-                else if (loadConfigInformation.Name.CompareTo("CallTaskTime") == 0 &&
+                else if (loadConfigInformation.Name.CompareTo("ComCallTaskTime") == 0 &&
                     loadConfigInformation.NodeType == XmlNodeType.Element)
                 {
                     loadConfigInformation.Read();
@@ -337,7 +470,7 @@ namespace bsw_generation.MenuFrame.FileMenu
                     loadConfigInformation.Read();
                     ilGeneralInfo.AppModeName = loadConfigInformation.Value;
                 }
- 
+
                 else if (loadConfigInformation.Name.CompareTo("Message") == 0 &&
                     loadConfigInformation.NodeType == XmlNodeType.Element)
                 {
@@ -504,5 +637,137 @@ namespace bsw_generation.MenuFrame.FileMenu
 
         }
 
+        public void TPLoadConfigurationFile(string selectPath, TPCommon tpCommonInfo, LinkedList<TPMessageAttributesInformation> tpConnectInfo)
+        {
+            XmlReader loadConfigInformation;
+
+            XmlReaderSettings loadConfigSetting = new XmlReaderSettings();
+
+            string tpLoadConfigContent = "";
+
+            loadConfigSetting.IgnoreComments = true;
+            loadConfigSetting.IgnoreWhitespace = true;
+
+            loadConfigInformation = XmlReader.Create(selectPath, loadConfigSetting);
+            //TPConnection
+            while (loadConfigInformation.Read())
+            {
+                if (loadConfigInformation.Name.CompareTo("ReceiveBufferMax") == 0 &&
+                    loadConfigInformation.NodeType == XmlNodeType.Element)
+                {
+                    loadConfigInformation.Read();
+                    tpCommonInfo.ReceiveMaxSize = Convert.ToUInt32(loadConfigInformation.Value);
+                }
+
+                else if (loadConfigInformation.Name.CompareTo("TPCallTaskTime") == 0 &&
+                    loadConfigInformation.NodeType == XmlNodeType.Element)
+                {
+                    loadConfigInformation.Read();
+                    tpCommonInfo.TPTaskCallTime = Convert.ToUInt16(loadConfigInformation.Value);
+                }
+
+                else if (loadConfigInformation.Name.CompareTo("TPConnection") == 0 && loadConfigInformation.NodeType == XmlNodeType.Element)
+                {
+                    if (loadConfigInformation.MoveToFirstAttribute())    // 첫 번째 속성이 있다면..
+                    {
+                        TPMessageAttributesInformation tpInformation = new TPMessageAttributesInformation();
+                        do
+                        {
+                            tpLoadConfigContent = loadConfigInformation.Name;
+                            switch (tpLoadConfigContent)
+                            {
+                                case "TPHandle":
+                                    tpInformation.TPHandle = Convert.ToUInt32(loadConfigInformation.Value);
+                                    break;
+
+                                case "AddressMode":
+                                    tpInformation.AddressMode = loadConfigInformation.Value;
+                                    break;
+
+                                case "UseFlowControl":
+                                    tpInformation.UseFlowControl = loadConfigInformation.Value;
+                                    break;
+
+                                case "UseBlockSize":
+                                    tpInformation.UseBlockSize = loadConfigInformation.Value;
+                                    break;
+
+                                case "UseSTmin":
+                                    tpInformation.UseSTmin = loadConfigInformation.Value;
+                                    break;
+
+                                case "BlockSize":
+                                    tpInformation.BlockSize = Convert.ToByte(loadConfigInformation.Value);
+                                    break;
+
+                                case "STmin":
+                                    tpInformation.STmin = Convert.ToByte(loadConfigInformation.Value);
+                                    break;
+
+                                case "FirstSequenceNumber":
+                                    tpInformation.FirstSN = Convert.ToByte(loadConfigInformation.Value);
+                                    break;
+
+                                case "TPSendID":
+                                    tpInformation.SendMsgID = Convert.ToUInt32(loadConfigInformation.Value);
+                                    break;
+
+                                case "TPReceiveID":
+                                    tpInformation.ReceiveMsgID = Convert.ToUInt32(loadConfigInformation.Value);
+                                    break;
+
+                                case "TPSendMsgName":
+                                    tpInformation.SendMsgName= loadConfigInformation.Value;
+                                    break;
+
+                                case "TPRecevieMsgName":
+                                    tpInformation.ReceiveMsgName = loadConfigInformation.Value;
+                                    break;
+
+                                case "ASTimeout":
+                                    tpInformation.N_As = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "BSTimeout":
+                                    tpInformation.N_Bs = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "ARTimeout":
+                                    tpInformation.N_Ar = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "CRTimeout":
+                                    tpInformation.N_Cr = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "WaitingMode":
+                                    tpInformation.WaitMode = loadConfigInformation.Value;
+                                    break;
+
+                                case "WftMax":
+                                    tpInformation.WftMax = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "WftMaxTime":
+                                    tpInformation.WftMaxTime = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                case "PAD":
+                                    tpInformation.Pad = Convert.ToUInt16(loadConfigInformation.Value);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+                        } while (loadConfigInformation.MoveToNextAttribute());
+                        tpConnectInfo.AddLast(tpInformation);
+                    }
+
+                }
+
+            }
+            loadConfigInformation.Close();
+        }
     }
 }

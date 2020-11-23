@@ -1607,8 +1607,11 @@ namespace bsw_generation.CodeGeneration
                 tpParameterHandle.WriteLine("    {");
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* sendID */", tpConnectionObject.SendMsgID));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* receiveID */", tpConnectionObject.ReceiveMsgID));
+#if false
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* baseAddress */", tpConnectionObject.BaseAddress));
+#endif
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* addressMode */", tpConnectionObject.AddressMode));
+#if false
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* addressType */", tpConnectionObject.AddressType));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* sourceAddress */", tpConnectionObject.SourceAddress));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* targetAddress */", tpConnectionObject.TargetAddress));
@@ -1616,6 +1619,7 @@ namespace bsw_generation.CodeGeneration
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* allAddressExtension */", tpConnectionObject.AcceptExtension == "TRUE" ? 1 : 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* addressExtension */", tpConnectionObject.AddressExtension));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* receiveAddressExtension */", 0));
+#endif
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* timeoutAs */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* reloadTimeoutAs */", tpConnectionObject.N_As));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* timeoutAr */", 0));
@@ -1642,10 +1646,12 @@ namespace bsw_generation.CodeGeneration
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* receiveFrameOffset */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* receiveBufferMaxSize */", "TP_MAX_RECEIVE_BUFFER_SIZE"));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* pad */", tpConnectionObject.Pad));
+#if false
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* priority */", tpConnectionObject.Priority));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* dataPage */", tpConnectionObject.DataPage));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* reserved */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* protocolDataUnit */", tpConnectionObject.ProtocolUnit));
+#endif
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* waitingMode */", tpConnectionObject.WaitMode == "TRUE" ? 1 : 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* wftmax */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* reloadWftmax */", tpConnectionObject.WftMax));
@@ -1664,10 +1670,12 @@ namespace bsw_generation.CodeGeneration
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* firstSN */", tpConnectionObject.FirstSN));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* sendSN */", 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* receiveSN */", 0));
-                tpParameterHandle.WriteLine(String.Format("     {0}, /* useRxMask */", tpConnectionObject.UsingRxMask == "TRUE" ? 1 : 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* waitTime */", 0));
+#if false
+                tpParameterHandle.WriteLine(String.Format("     {0}, /* useRxMask */", tpConnectionObject.UsingRxMask == "TRUE" ? 1 : 0));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* rxMask */", tpConnectionObject.RxMask));
                 tpParameterHandle.WriteLine(String.Format("     {0}, /* messageCount */", tpConnectionObject.MessageCount));
+#endif
                 tpParameterHandle.WriteLine("    },");
             }
 

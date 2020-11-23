@@ -144,9 +144,10 @@
             // 
             // ConfigureationPathDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(643, 269);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(653, 269);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.DatabaseNode_Combo);
             this.Controls.Add(this.DataBasePathText);

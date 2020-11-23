@@ -39,16 +39,33 @@ namespace bsw_generation.MenuFrame.ConfigurationMenu
         public ConfigureationPathDialog()
         {
             InitializeComponent();
-            generationFilePath = @"D:\Project\InternalProject\CarLibrary\bsw\2020_03_25";
+            generationFilePath = @"C:\";
             databaseFilePath = "";
             this.GenerationPathText.Text = generationFilePath;
             this.DataBasePathText.Text = databaseFilePath;
-            generationFolderPathDialog.SelectedPath = @"D:\Project\InternalProject\CarLibrary\bsw\2020_03_25";
-            databaseFilePathDialog.InitialDirectory = @"D:\";
+            generationFolderPathDialog.SelectedPath = @"C:\";
+            databaseFilePathDialog.InitialDirectory = @"C:\";
             databaseFilePathDialog.Filter = "dbc files (*.dbc)|*.dbc|All files (*.*)|*.*";
         }
         
-        public void updateGenerationFilePath(string generationPath, string databasePath, string selectNode)
+        public void ClearConfigurationPath()
+        {
+            generationFilePath = @"C:\";
+            databaseFilePath = "";
+            selectNodeName = "";
+
+            generationFolderPathDialog.SelectedPath = @"C:\";
+            databaseFilePathDialog.InitialDirectory = @"C:\";
+            
+            this.GenerationPathText.Text = generationFilePath;
+            this.DataBasePathText.Text = databaseFilePath;
+            this.DatabaseNode_Combo.Text = selectNodeName;
+            //this.DatabaseNode_Combo.TextUpdate = selectNodeName;
+            MessageBox.Show(string.Format("Generaiton Path = {0}", generationFilePath));
+            MessageBox.Show(string.Format("DataBasePathText Path = {0}", databaseFilePath));
+            MessageBox.Show(string.Format("DatabaseNode_Combo Path = {0}", selectNodeName));
+        }
+        public void UpdateGenerationFilePath(string generationPath, string databasePath, string selectNode)
         {
             generationFilePath = generationPath;
             databaseFilePath = databasePath;
@@ -98,6 +115,7 @@ namespace bsw_generation.MenuFrame.ConfigurationMenu
             this.GenerationPathText.Text = generationPath;
             this.DataBasePathText.Text = databasePath;
             this.DatabaseNode_Combo.Text = selectNodeName;
+            this.DatabaseNode_Combo.Items.Clear();
 
         }
 

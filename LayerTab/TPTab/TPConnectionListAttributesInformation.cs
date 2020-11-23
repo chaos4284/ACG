@@ -53,18 +53,8 @@ namespace bsw_generation.LayerTab.TPTab
 
         //////////////////////////////////////Common ISO TP Property//////////////////////////////////////
 
-        [Browsable(true)]
-        [DisplayName("address mode")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Select address mode.")]
-        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.AddressModeConvertClass))]
-        public string AddressMode
-        {
-            get { return addressMode; }
-            set { addressMode = value; }
-        }
 
+#if false
         [Browsable(true)]
         [DisplayName("address type")]
         [ReadOnlyAttribute(false)]
@@ -100,76 +90,7 @@ namespace bsw_generation.LayerTab.TPTab
             set { acceptExtension = value; }
         }
 
-        [Browsable(true)]
-        [DisplayName("Use Flow Control")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Set to use of Flow Control")]
-        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
-        public string UseFlowControl
-        {
-            get { return useFlowControl; }
-            set { useFlowControl = value; }
-        }
-
-        [Browsable(true)]
-        [DisplayName("Use Block Size")]
-        [Category("Common ISO TP Property ")]
-        [Description("Set to BlockSize of BlockSize")]
-        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
-        public string UseBlockSize
-        {
-            get { return useBlockSize; }
-            set { useBlockSize = value; }
-        }
-
-        [Browsable(true)]
-        [DisplayName("Use STmin")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Set to use of STmin")]
-        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
-        public string UseSTmin
-        {
-            get { return useSTmin; }
-            set { useSTmin = value; }
-        }
-
-        [Browsable(true)]
-        [DisplayName("BS in Flow Control")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Set the value of blocksize in Flow Control")]
-        public byte BlockSize
-        {
-            get { return blockSize; }
-            set { blockSize = value; }
-
-        }
-
-        [Browsable(true)]
-        [DisplayName("STmin in Flow Control")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Set the value of STmin in Flow Control")]
-        public byte STmin
-        {
-            get { return stmin; }
-            set { stmin = value; }
-
-        }
-
-        [Browsable(true)]
-        [DisplayName("First Sequence Number")]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Set the value of first sequence number")]
-        public byte FirstSN
-        {
-            get { return firstSN; }
-            set { firstSN = value; }
-
-        }
+ 
 
         [Browsable(true)]
         [DisplayName("rxmask value")]
@@ -195,96 +116,6 @@ namespace bsw_generation.LayerTab.TPTab
             set { usingRxMask = value; }
         }
 
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("N_As.[ms]")]
-        public UInt16 N_As
-        {
-            get { return asTimeout; }
-            set { asTimeout = value; }
-
-        }
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("N_Bs.[ms]")]
-        public UInt16 N_Bs
-        {
-            get { return bsTimeout; }
-            set { bsTimeout = value; }
-
-        }
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("N_Ar.[ms]")]
-        public UInt16 N_Ar
-        {
-            get { return arTimeout; }
-            set { arTimeout = value; }
-
-        }
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("N_Cr.[ms]")]
-        public UInt16 N_Cr
-        {
-            get { return crTimeout; }
-            set { crTimeout = value; }
-
-        }
-
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Select WT mode in FlowControl.")]
-        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
-        public string WaitMode
-        {
-            get { return waitMode; }
-            set { waitMode = value; }
-
-        }
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Wait Count.")]
-        public UInt16 WftMax
-        {
-            get { return wftMax; }
-            set { wftMax = value; }
-
-        }
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("Wait Status Cycle .")]
-        public UInt16 WftMaxTime
-        {
-            get { return wftMaxTime; }
-            set { wftMaxTime = value; }
-
-        }
-
-
-
-        [Browsable(true)]
-        [ReadOnlyAttribute(false)]
-        [Category("Common ISO TP Property ")]
-        [Description("this value filled into unused byte SF and last CF")]
-        public UInt16 Pad
-        {
-            get { return pad; }
-            set { pad = value; }
-        }
         
 
         [Browsable(true)]
@@ -298,8 +129,92 @@ namespace bsw_generation.LayerTab.TPTab
 
         }
         //////////////////////////////////////Common ISO TP Property//////////////////////////////////////
-
+#endif
         //////////////////////////////////////Message Information/////////////////////////////////////////
+
+        [Browsable(true)]
+        [DisplayName("address mode")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Select address mode.")]
+        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.AddressModeConvertClass))]
+        public string AddressMode
+        {
+            get { return addressMode; }
+            set { addressMode = value; }
+        }
+
+        [Browsable(true)]
+        [DisplayName("Use Flow Control")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Set to use of Flow Control")]
+        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
+        public string UseFlowControl
+        {
+            get { return useFlowControl; }
+            set { useFlowControl = value; }
+        }
+
+        [Browsable(true)]
+        [DisplayName("Use Block Size")]
+        [Category("Message Information")]
+        [Description("Set to BlockSize of BlockSize")]
+        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
+        public string UseBlockSize
+        {
+            get { return useBlockSize; }
+            set { useBlockSize = value; }
+        }
+
+        [Browsable(true)]
+        [DisplayName("Use STmin")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Set to use of STmin")]
+        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
+        public string UseSTmin
+        {
+            get { return useSTmin; }
+            set { useSTmin = value; }
+        }
+
+        [Browsable(true)]
+        [DisplayName("BS in Flow Control")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Set the value of blocksize in Flow Control")]
+        public byte BlockSize
+        {
+            get { return blockSize; }
+            set { blockSize = value; }
+
+        }
+
+        [Browsable(true)]
+        [DisplayName("STmin in Flow Control")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Set the value of STmin in Flow Control")]
+        public byte STmin
+        {
+            get { return stmin; }
+            set { stmin = value; }
+
+        }
+
+        [Browsable(true)]
+        [DisplayName("First Sequence Number")]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Set the value of first sequence number")]
+        public byte FirstSN
+        {
+            get { return firstSN; }
+            set { firstSN = value; }
+
+        }
+
         [Browsable(true)]
         [ReadOnlyAttribute(false)]
         [Category("Message Information")]
@@ -340,6 +255,98 @@ namespace bsw_generation.LayerTab.TPTab
             set { receiveMsgName = value; }
         }
 
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("N_As.[ms]")]
+        public UInt16 N_As
+        {
+            get { return asTimeout; }
+            set { asTimeout = value; }
+
+        }
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("N_Bs.[ms]")]
+        public UInt16 N_Bs
+        {
+            get { return bsTimeout; }
+            set { bsTimeout = value; }
+
+        }
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("N_Ar.[ms]")]
+        public UInt16 N_Ar
+        {
+            get { return arTimeout; }
+            set { arTimeout = value; }
+
+        }
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("N_Cr.[ms]")]
+        public UInt16 N_Cr
+        {
+            get { return crTimeout; }
+            set { crTimeout = value; }
+
+        }
+
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Select WT mode in FlowControl.")]
+        [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
+        public string WaitMode
+        {
+            get { return waitMode; }
+            set { waitMode = value; }
+
+        }
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Wait Count.")]
+        public UInt16 WftMax
+        {
+            get { return wftMax; }
+            set { wftMax = value; }
+
+        }
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("Wait Status Cycle .")]
+        public UInt16 WftMaxTime
+        {
+            get { return wftMaxTime; }
+            set { wftMaxTime = value; }
+
+        }
+
+
+
+        [Browsable(true)]
+        [ReadOnlyAttribute(false)]
+        [Category("Message Information")]
+        [Description("this value filled into unused byte SF and last CF")]
+        public UInt16 Pad
+        {
+            get { return pad; }
+            set { pad = value; }
+        }
+#if false
         [Browsable(true)]
         [ReadOnlyAttribute(false)]
         [Category("Message Information")]
@@ -399,6 +406,7 @@ namespace bsw_generation.LayerTab.TPTab
             get { return protocolUnit; }
             set { protocolUnit = value; }
         }
+#endif
         //////////////////////////////////////Message Information/////////////////////////////////////////
 
 
