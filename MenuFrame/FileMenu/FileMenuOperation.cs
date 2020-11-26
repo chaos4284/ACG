@@ -753,7 +753,7 @@ namespace bsw_generation.MenuFrame.FileMenu
                                     break;
 
                                 case "PAD":
-                                    tpInformation.Pad = Convert.ToUInt16(loadConfigInformation.Value);
+                                    tpInformation.Pad = Convert.ToByte(loadConfigInformation.Value);
                                     break;
 
                                 default:

@@ -60,10 +60,6 @@ namespace bsw_generation.MenuFrame.ConfigurationMenu
             this.GenerationPathText.Text = generationFilePath;
             this.DataBasePathText.Text = databaseFilePath;
             this.DatabaseNode_Combo.Text = selectNodeName;
-            //this.DatabaseNode_Combo.TextUpdate = selectNodeName;
-            MessageBox.Show(string.Format("Generaiton Path = {0}", generationFilePath));
-            MessageBox.Show(string.Format("DataBasePathText Path = {0}", databaseFilePath));
-            MessageBox.Show(string.Format("DatabaseNode_Combo Path = {0}", selectNodeName));
         }
         public void UpdateGenerationFilePath(string generationPath, string databasePath, string selectNode)
         {

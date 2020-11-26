@@ -42,15 +42,17 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.comDataGridView = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpDataGridView = new System.Windows.Forms.DataGridView();
             this.TPParameterProperty = new System.Windows.Forms.PropertyGrid();
             this.TpTab = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comDataGridView)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tpDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -83,7 +85,7 @@
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+N";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -92,7 +94,7 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+O";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -101,7 +103,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+S";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -110,7 +112,7 @@
             this.exitCtrlXToolStripMenuItem.Name = "exitCtrlXToolStripMenuItem";
             this.exitCtrlXToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+X";
             this.exitCtrlXToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.exitCtrlXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitCtrlXToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.exitCtrlXToolStripMenuItem.Text = "Exit";
             // 
             // menuConfigurationPathSet
@@ -125,7 +127,7 @@
             // setPathToolStripMenuItem
             // 
             this.setPathToolStripMenuItem.Name = "setPathToolStripMenuItem";
-            this.setPathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.setPathToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.setPathToolStripMenuItem.Text = "Path Set...";
             this.setPathToolStripMenuItem.Click += new System.EventHandler(this.menuConfigurationPathSet_Click);
             // 
@@ -177,7 +179,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.comDataGridView);
             this.tabPage1.Controls.Add(this.ComTab);
             this.tabPage1.Controls.Add(this.COMParameterProperty);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -188,39 +190,55 @@
             this.tabPage1.Text = "COM";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // comDataGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(243, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(1000, 618);
-            this.dataGridView1.TabIndex = 9;
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            this.comDataGridView.AllowUserToAddRows = false;
+            this.comDataGridView.AllowUserToDeleteRows = false;
+            this.comDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.comDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.comDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.comDataGridView.Location = new System.Drawing.Point(243, 3);
+            this.comDataGridView.Name = "comDataGridView";
+            this.comDataGridView.RowHeadersWidth = 51;
+            this.comDataGridView.RowTemplate.Height = 23;
+            this.comDataGridView.Size = new System.Drawing.Size(1000, 618);
+            this.comDataGridView.TabIndex = 9;
+            this.comDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.comDataGridViewCellValueChanged);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.tpDataGridView);
             this.tabPage2.Controls.Add(this.TPParameterProperty);
             this.tabPage2.Controls.Add(this.TpTab);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1246, 618);
+            this.tabPage2.Size = new System.Drawing.Size(1246, 624);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "TP";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tpDataGridView
+            // 
+            this.tpDataGridView.AllowUserToAddRows = false;
+            this.tpDataGridView.AllowUserToDeleteRows = false;
+            this.tpDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.tpDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tpDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tpDataGridView.Location = new System.Drawing.Point(243, 3);
+            this.tpDataGridView.Name = "tpDataGridView";
+            this.tpDataGridView.RowHeadersWidth = 51;
+            this.tpDataGridView.RowTemplate.Height = 23;
+            this.tpDataGridView.Size = new System.Drawing.Size(1000, 618);
+            this.tpDataGridView.TabIndex = 10;
+            this.tpDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.tpDataGridViewCellValueChanged);
             // 
             // TPParameterProperty
             // 
             this.TPParameterProperty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.TPParameterProperty.Location = new System.Drawing.Point(249, 3);
             this.TPParameterProperty.Name = "TPParameterProperty";
-            this.TPParameterProperty.Size = new System.Drawing.Size(571, 612);
+            this.TPParameterProperty.Size = new System.Drawing.Size(571, 618);
             this.TPParameterProperty.TabIndex = 3;
             this.TPParameterProperty.ToolbarVisible = false;
             // 
@@ -230,7 +248,7 @@
             this.TpTab.Dock = System.Windows.Forms.DockStyle.Left;
             this.TpTab.Location = new System.Drawing.Point(3, 3);
             this.TpTab.Name = "TpTab";
-            this.TpTab.Size = new System.Drawing.Size(240, 612);
+            this.TpTab.Size = new System.Drawing.Size(240, 618);
             this.TpTab.TabIndex = 2;
             this.TpTab.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TPTreeViewInfoAfterSelect);
             // 
@@ -251,8 +269,9 @@
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comDataGridView)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tpDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,7 +296,8 @@
         private System.Windows.Forms.ToolStripMenuItem generationGToolStripMenuItem;
         private System.Windows.Forms.TreeView TpTab;
         private System.Windows.Forms.PropertyGrid TPParameterProperty;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView comDataGridView;
+        private System.Windows.Forms.DataGridView tpDataGridView;
     }
 }
 

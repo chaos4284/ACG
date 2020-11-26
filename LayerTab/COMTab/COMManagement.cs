@@ -239,7 +239,7 @@ namespace bsw_generation.LayerTab.ComTab
             receive_msg_handle_index = 0;
             send_sig_handle_index = 0;
             receive_sig_handle_index = 0;
-
+            //General 트리뷰 선택후 New메뉴로 새로 만들기 진행시 General이 표시지 되지 않는 문제로 인하여 추가
             switch(currentSelectTreeIndex)
             {
                 case GENERAL_INFO_INDEX:
@@ -258,7 +258,7 @@ namespace bsw_generation.LayerTab.ComTab
                     comProperty.SelectedObject = null;
                     break;
             }
-            
+
         }
 
         public Boolean checkCOMGenerationCondition()
@@ -831,7 +831,6 @@ namespace bsw_generation.LayerTab.ComTab
                         break;
 
                     case DEADLINE_MONITORING_OPTION_INDEX:
-                        MessageBox.Show("deadline");
                         receiveMessageInfo.ElementAt(e.RowIndex).DeadLineMonitoringOption = (string)(comDataGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
                         break;
 

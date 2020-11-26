@@ -30,7 +30,7 @@ namespace bsw_generation.LayerTab.TPTab
         private UInt16 wftMax = 0;
         private UInt16 wftMaxTime = 1000;
         private string waitMode = "FALSE";
-        private UInt16 pad = 0xFF;
+        private Byte pad = 0xFF;
 
         //Message Information
         private string sendMsgName = "";
@@ -133,7 +133,7 @@ namespace bsw_generation.LayerTab.TPTab
         //////////////////////////////////////Message Information/////////////////////////////////////////
 
         [Browsable(true)]
-        [DisplayName("address mode")]
+        [DisplayName("Address Mode")]
         [ReadOnlyAttribute(false)]
         [Category("Message Information")]
         [Description("Select address mode.")]
@@ -145,7 +145,7 @@ namespace bsw_generation.LayerTab.TPTab
         }
 
         [Browsable(true)]
-        [DisplayName("Use Flow Control")]
+        [DisplayName("Use FlowControl")]
         [ReadOnlyAttribute(false)]
         [Category("Message Information")]
         [Description("Set to use of Flow Control")]
@@ -157,7 +157,7 @@ namespace bsw_generation.LayerTab.TPTab
         }
 
         [Browsable(true)]
-        [DisplayName("Use Block Size")]
+        [DisplayName("Use BlockSize")]
         [Category("Message Information")]
         [Description("Set to BlockSize of BlockSize")]
         [TypeConverter(typeof(bsw_generation.Common.AttributeScrollConvertClass.BoolConvertClass))]
@@ -341,7 +341,7 @@ namespace bsw_generation.LayerTab.TPTab
         [ReadOnlyAttribute(false)]
         [Category("Message Information")]
         [Description("this value filled into unused byte SF and last CF")]
-        public UInt16 Pad
+        public Byte Pad
         {
             get { return pad; }
             set { pad = value; }

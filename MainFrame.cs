@@ -93,7 +93,7 @@ namespace bsw_generation
             /*COM Module Init */
             //COMManagement.
 
-            COMManagement.ComDataGrid = dataGridView1;
+            COMManagement.ComDataGrid = comDataGridView;
             COMManagement.MainTree = ComTab; // ComTab: Tree of COM TAB in Desiner 
             COMManagement.IlProperty = COMParameterProperty;
             COMManagement.IlProperty.PropertySort = PropertySort.Categorized;
@@ -106,9 +106,11 @@ namespace bsw_generation
 
 
             /*TP Module Init */
+            TPManagement.TPDataGrid = tpDataGridView;
             TPManagement.MainTree = TpTab;
             TPManagement.TPProperty = TPParameterProperty;
             TPManagement.TPProperty.PropertySort = PropertySort.Categorized;
+            TPManagement.InitialTPLayer();
 
             TPManagement.CommonTree = TpTab.Nodes.Add("Common");
             TPManagement.ConnectionTree = TpTab.Nodes.Add("TPConnectionList");
@@ -441,9 +443,15 @@ namespace bsw_generation
             }
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+
+        private void tpDataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            COMManagement.comDataGridChangedValue(sender,e);
+            TPManagement.tpDataGridChangedValue(sender, e);
+        }
+
+        private void comDataGridViewCellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            COMManagement.comDataGridChangedValue(sender, e);
         }
 
 
