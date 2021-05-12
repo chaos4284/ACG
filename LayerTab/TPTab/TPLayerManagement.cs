@@ -209,11 +209,13 @@ namespace bsw_generation.LayerTab.TPTab
             }
 
         }
-*/
+*/ 
+        /*TP Treeview 선택시 정보를 PropertyGrid에 표시한다. */
         public void TPPropertyDisplay(string objName)
         {
             switch (objName)
             {
+                /*Common Group을 PropertyGrid에 표시한다. */
                 case "Common":
                     tpProperty.Show();
                     tpDataGrid.Hide();
@@ -221,6 +223,7 @@ namespace bsw_generation.LayerTab.TPTab
                     currentSelectTreeIndex = COMMON_INDEX;
                     break;
 
+                /*전체 TP 정보를 DataGridView에 표시한다. */
                 case "TPConnectionList":
                     int rowIndex = 0;
                     tpProperty.Hide();
@@ -281,6 +284,7 @@ namespace bsw_generation.LayerTab.TPTab
 #endif
                         break;
 
+                /*Common Group을 PropertyGrid에 표시한다. */
                 default:
                     tpProperty.Show();
                     tpDataGrid.Hide();
@@ -305,6 +309,7 @@ namespace bsw_generation.LayerTab.TPTab
 
             }
         }
+        /*전체 TP 정보(DataGridView)에서 정보가 변경되었을경우 호출된다.*/
         public void tpDataGridChangedValue(object sender, DataGridViewCellEventArgs e)
         {
             //MessageBox.Show(String.Format("current Index = {0}", currentSelectTreeIndex));
@@ -389,6 +394,8 @@ namespace bsw_generation.LayerTab.TPTab
 
             }
         }
+
+        /*XML 설정파일에서 전체 TP 정보을 가져온다.*/
         public void TPXmlToDataUpdate(TPCommon xmlTPCommonInfo, LinkedList<TPMessageAttributesInformation> xmlTPConnectInfo)
         {
             //tpMessageInfo
